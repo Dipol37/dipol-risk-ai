@@ -241,8 +241,9 @@ with info1:
     <div class="card">
         <h3>Hanta Virüsü Nedir?</h3>
         <p class="muted">
-        Hanta virüsleri bazı kemirgenlerde bulunabilen virüslerdir. İnsanlar, kemirgenlerin
-        dışkı, idrar veya tükürük kalıntılarına maruz kaldığında risk altında olabilir.
+        Hanta virüsleri bazı kemirgenlerde bulunabilen virüslerdir.
+        İnsanlar, enfekte kemirgenlerin dışkı, idrar veya tükürük kalıntılarıyla temas ettiğinde
+        ya da kirli tozu soluduğunda risk altında olabilir.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -369,7 +370,13 @@ with st.form("hanta_risk_formu"):
     k1, k2 = st.columns(2)
 
     with k1:
-        yas_grubu = st.selectbox("Yaş grubunuz", ["18 altı", "18-30", "31-45", "46-60", "60+"])
+        yas = st.number_input(
+            "Yaşınız",
+            min_value=1,
+            max_value=100,
+            value=25,
+            step=1
+        )
 
     with k2:
         riskli_durum = st.selectbox(
@@ -494,9 +501,9 @@ def risk_hesapla():
     elif temas_gunu > 45:
         puan += 1
 
-    if yas_grubu in ["18 altı", "60+"]:
+    if yas < 18 or yas >= 60:
         puan += 1
-        nedenler.append("Yaş grubu nedeniyle dikkat önerilir.")
+        nedenler.append("Yaş nedeniyle dikkat seviyesi artırıldı.")
 
     if riskli_durum == "Evet":
         puan += 2
@@ -722,37 +729,36 @@ else:
     """, unsafe_allow_html=True)
 
 
-st.markdown('<div class="section-title">📚 Bilgilendirme Bölümü</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">📚 Hanta Virüsü Bilgilendirme</div>', unsafe_allow_html=True)
 
-with st.expander("🦠 Hanta virüsü hakkında kısa bilgi"):
+with st.expander("🦠 Hanta virüsü nasıl bulaşabilir?"):
     st.write("""
-    Hanta virüsleri bazı kemirgenlerde bulunabilir. İnsanlar, kemirgenlerin idrar, dışkı veya
-    tükürük kalıntılarıyla kirlenmiş ortamlarla temas ettiğinde risk altında olabilir.
-    Bu uygulama, verilen cevaplara göre eğitim amaçlı risk sınıflandırması yapar.
+    Hanta virüsleri en sık kemirgenlerle ilişkilidir. Risk; kemirgen dışkısı, idrarı,
+    tükürüğü, yuva kalıntıları veya bu kalıntıların bulunduğu tozlu ortamlarla temas edildiğinde artabilir.
+    Özellikle kapalı ve uzun süre havalandırılmamış alanlarda dikkatli olunmalıdır.
     """)
 
-with st.expander("🧹 Güvenli temizlik neden önemli?"):
+with st.expander("🧹 Güvenli temizlik nasıl yapılmalı?"):
     st.write("""
-    Kapalı, tozlu ve kemirgen izi olan alanlarda kuru süpürme veya toz kaldırma riskli kabul edilir.
-    Bu nedenle havalandırma, maske, eldiven ve dikkatli temizlik önemlidir.
+    Kemirgen izi bulunan alanlarda kuru süpürme veya elektrikli süpürge kullanma önerilmez.
+    Önce ortam havalandırılmalı, maske ve eldiven kullanılmalı, kirli alan nemlendirilip uygun şekilde temizlenmelidir.
     """)
 
 with st.expander("🏥 Hangi durumda doktora gidilmeli?"):
     st.write("""
-    Nefes darlığı, göğüste sıkışma, yüksek ateş, giderek artan halsizlik veya kemirgen teması sonrası
-    birden fazla belirti varsa sağlık kuruluşuna başvurulmalıdır.
+    Nefes darlığı, göğüste sıkışma, yüksek ateş, giderek artan halsizlik, öksürük veya
+    kemirgen teması sonrası birden fazla belirti varsa sağlık kuruluşuna başvurulmalıdır.
     """)
 
-with st.expander("📌 Projede kullanılan yöntem"):
+with st.expander("🛡️ Korunmak için neler yapılabilir?"):
     st.write("""
-    Bu projede kural tabanlı risk puanlama sistemi kullanılmıştır. Kullanıcının cevapları temas,
-    ortam, korunma ve belirti gruplarına ayrılır. Her faktör puanlanır ve toplam puana göre
-    düşük, orta veya yüksek risk sonucu oluşturulur. Karar güveni, cevapların netliğine ve risk
-    faktörlerinin belirginliğine göre hesaplanır.
+    Kemirgenlerin eve veya kapalı alanlara girişini engellemek, yiyecekleri kapalı kaplarda saklamak,
+    çöpleri açıkta bırakmamak, delik ve çatlakları kapatmak, düzenli temizlik yapmak ve riskli alanlarda
+    koruyucu ekipman kullanmak önemlidir.
     """)
 
 st.markdown("""
 <div class="footer-box">
-    HantaAI Risk Değerlendirme Sistemi • Eğitim amaçlı proje • Tıbbi teşhis yerine geçmez
+    HantaAI Risk Değerlendirme Sistemi • Eğitim amaçlıdır • Tıbbi teşhis yerine geçmez
 </div>
 """, unsafe_allow_html=True)
