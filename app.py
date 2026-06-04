@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 st.set_page_config(
-    page_title="HantaAI | Risk Değerlendirme",
+    page_title="HantaRisk AI | Klinik Ön Değerlendirme",
     page_icon="🦠",
     layout="wide"
 )
@@ -17,7 +17,7 @@ st.markdown("""
 
 .block-container {
     max-width: 1180px;
-    padding-top: 2rem;
+    padding-top: 1.4rem;
     padding-bottom: 3rem;
 }
 
@@ -25,29 +25,67 @@ st.markdown("""
     display: none;
 }
 
+.navbar {
+    background: rgba(15,23,42,.78);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.22);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 850;
+    color: #ddd6fe;
+}
+
+.navlinks span {
+    display: inline-block;
+    margin-left: 14px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.status {
+    background: rgba(34,197,94,.14);
+    border: 1px solid rgba(34,197,94,.38);
+    color: #bbf7d0;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
 .hero {
-    background: radial-gradient(circle at top left, rgba(139,92,246,.42), transparent 35%),
-                linear-gradient(135deg, rgba(30,41,59,.98), rgba(15,23,42,.98));
+    background:
+        radial-gradient(circle at top left, rgba(139,92,246,.45), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(14,165,233,.22), transparent 32%),
+        linear-gradient(135deg, rgba(30,41,59,.98), rgba(15,23,42,.98));
     border: 1px solid rgba(255,255,255,.10);
     border-radius: 30px;
-    padding: 36px;
+    padding: 40px;
     box-shadow: 0 18px 50px rgba(0,0,0,.35);
     margin-bottom: 22px;
 }
 
 .hero h1 {
-    font-size: 48px;
-    line-height: 1.1;
-    margin: 0 0 12px 0;
+    font-size: 50px;
+    line-height: 1.08;
+    margin: 0 0 14px 0;
     color: #ddd6fe;
-    letter-spacing: -1px;
+    letter-spacing: -1.2px;
 }
 
 .hero p {
     color: #cbd5e1;
     font-size: 18px;
-    line-height: 1.7;
-    max-width: 880px;
+    line-height: 1.75;
+    max-width: 900px;
 }
 
 .badge {
@@ -90,9 +128,9 @@ st.markdown("""
 
 .section-title {
     font-size: 28px;
-    font-weight: 800;
+    font-weight: 850;
     color: #f8fafc;
-    margin: 12px 0 12px 0;
+    margin: 16px 0 12px 0;
 }
 
 .muted {
@@ -104,8 +142,11 @@ st.markdown("""
     background: rgba(255,255,255,.045);
     border: 1px solid rgba(255,255,255,.10);
     border-radius: 22px;
-    padding: 22px;
-    min-height: 128px;
+    padding: 20px;
+    min-height: 145px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .metric-label {
@@ -115,9 +156,10 @@ st.markdown("""
 }
 
 .metric-value {
-    font-size: 32px;
+    font-size: 25px;
     font-weight: 850;
     color: #fff;
+    line-height: 1.25;
 }
 
 .low {
@@ -178,6 +220,22 @@ div[data-testid="stExpander"] {
         padding-top: 1rem;
     }
 
+    .navbar {
+        display: block;
+        padding: 14px;
+    }
+
+    .navlinks span {
+        margin-left: 0;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    .status {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
     .hero {
         padding: 22px;
         border-radius: 20px;
@@ -201,7 +259,7 @@ div[data-testid="stExpander"] {
     }
 
     .metric-value {
-        font-size: 26px;
+        font-size: 23px;
     }
 
     .card, .form-card {
@@ -213,24 +271,37 @@ div[data-testid="stExpander"] {
 """, unsafe_allow_html=True)
 
 st.markdown("""
+<div class="navbar">
+    <div class="logo">🦠 HantaRisk AI</div>
+    <div class="navlinks">
+        <span>Ana Sayfa</span>
+        <span>Risk Testi</span>
+        <span>Hanta Rehberi</span>
+        <span>Yönlendirme</span>
+        <span class="status">Sistem Online</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
 <div class="hero">
-    <h1>🦠 HantaAI Risk Değerlendirme</h1>
+    <h1>Hantavirüs Risklerini Yapay Zeka Destekli Sistemle Değerlendirin</h1>
     <p>
-        Hanta virüsüyle ilgili olası temas, ortam, korunma ve belirti bilgilerini analiz eden
-        bilgilendirme amaçlı risk değerlendirme sistemi. Soruları cevaplayarak düşük, orta veya
-        yüksek risk sonucunu ve önerilen yönlendirmeleri görebilirsiniz.
+        HantaRisk AI; kemirgen teması, ortam bilgisi, temizlik/korunma durumu,
+        belirtiler, yaş ve ek risk faktörlerine göre ön risk analizi oluşturan
+        bilgilendirme amaçlı klinik karar destek sistemidir.
     </p>
-    <span class="badge">Temas Analizi</span>
-    <span class="badge">Belirti Kontrolü</span>
-    <span class="badge">Korunma Önerileri</span>
-    <span class="badge">Yönlendirme Desteği</span>
+    <span class="badge">Klinik Ön Değerlendirme</span>
+    <span class="badge">Belirti Analizi</span>
+    <span class="badge">Risk Puanlama</span>
+    <span class="badge">Korunma Rehberi</span>
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <div class="notice">
-    ⚠️ Bu uygulama tıbbi teşhis koymaz. Ciddi belirti, nefes darlığı veya yüksek riskli temas varsa
-    en yakın sağlık kuruluşuna başvurulmalıdır.
+    ⚠️ Bu uygulama tıbbi teşhis koymaz. Ciddi belirti, nefes darlığı, göğüste sıkışma
+    veya yüksek riskli temas varsa en yakın sağlık kuruluşuna başvurulmalıdır.
 </div>
 """, unsafe_allow_html=True)
 
@@ -242,8 +313,8 @@ with info1:
         <h3>Hanta Virüsü Nedir?</h3>
         <p class="muted">
         Hanta virüsleri bazı kemirgenlerde bulunabilen virüslerdir.
-        İnsanlar, enfekte kemirgenlerin dışkı, idrar veya tükürük kalıntılarıyla temas ettiğinde
-        ya da kirli tozu soluduğunda risk altında olabilir.
+        İnsanlar, enfekte kemirgenlerin dışkı, idrar veya tükürük kalıntılarına
+        maruz kaldığında risk altında olabilir.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -253,8 +324,8 @@ with info2:
     <div class="card">
         <h3>Risk Nasıl Oluşur?</h3>
         <p class="muted">
-        Depo, bodrum, ahır, köy evi veya uzun süre kapalı kalmış alanlarda kemirgen izleri
-        ve tozlu temizlik risk değerlendirmesinde önemlidir.
+        Depo, bodrum, ahır, köy evi veya uzun süre kapalı kalmış alanlarda
+        kemirgen izleri ve tozlu temizlik risk değerlendirmesinde önemlidir.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -264,19 +335,19 @@ with info3:
     <div class="card">
         <h3>Ne Zaman Dikkat?</h3>
         <p class="muted">
-        Ateş, halsizlik, kas ağrısı gibi belirtilere ek olarak öksürük, göğüs sıkışması
-        veya nefes darlığı varsa tıbbi destek geciktirilmemelidir.
+        Ateş, halsizlik, kas ağrısı gibi belirtilere ek olarak öksürük,
+        göğüs sıkışması veya nefes darlığı varsa tıbbi destek geciktirilmemelidir.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="section-title">📋 Risk Değerlendirme Formu</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">📋 Klinik Risk Değerlendirme Testi</div>', unsafe_allow_html=True)
 st.markdown('<p class="muted">Formu adım adım doldurun. Sonuç yalnızca “Riskimi Değerlendir” butonuna basınca oluşturulur.</p>', unsafe_allow_html=True)
 
 with st.form("hanta_risk_formu"):
     st.markdown('<div class="form-card">', unsafe_allow_html=True)
 
-    st.markdown("### 1. Ortam ve Temas Bilgileri")
+    st.markdown("### 1. Temas ve Ortam Bilgileri")
     c1, c2 = st.columns(2)
 
     with c1:
@@ -325,7 +396,7 @@ with st.form("hanta_risk_formu"):
         )
 
     st.markdown("---")
-    st.markdown("### 2. Korunma Bilgileri")
+    st.markdown("### 2. Korunma ve Temizlik Bilgileri")
     c3, c4, c5 = st.columns(3)
 
     with c3:
@@ -341,7 +412,7 @@ with st.form("hanta_risk_formu"):
     )
 
     st.markdown("---")
-    st.markdown("### 3. Zaman ve Belirti Bilgileri")
+    st.markdown("### 3. Zaman ve Belirti Kontrolü")
 
     temas_gunu = st.slider("Olası temastan kaç gün geçti?", 0, 60, 7)
 
@@ -366,7 +437,7 @@ with st.form("hanta_risk_formu"):
         belirtiler_artiyor = st.checkbox("Belirtiler gün geçtikçe artıyor")
 
     st.markdown("---")
-    st.markdown("### 4. Kişisel Durum")
+    st.markdown("### 4. Yaş ve Ek Risk Durumu")
     k1, k2 = st.columns(2)
 
     with k1:
@@ -465,10 +536,11 @@ def risk_hesapla():
         nedenler.append("Kirli alanın süpürmeden önce ıslatılmaması/dezenfekte edilmemesi risk oluşturabilir.")
 
     belirti_listesi = [
-        ates, halsizlik, kas_agrisi, bas_agrisi, bulanti,
-        karin_agrisi, ishal, bas_donmesi, oksuruk,
-        nefes_darligi, gogus_sikisma, belirtiler_artiyor
+        ates, halsizlik, kas_agrisi, bas_agrisi,
+        bulanti, karin_agrisi, ishal, bas_donmesi,
+        oksuruk, nefes_darligi, gogus_sikisma, belirtiler_artiyor
     ]
+
     belirti_sayisi = sum(belirti_listesi)
     puan += belirti_sayisi
 
@@ -538,12 +610,12 @@ def risk_hesapla():
         emoji = "🔴"
         css = "high"
         aciklama = "Ciddi uyarı belirtisi veya yüksek riskli temas bildirildi. Gecikmeden sağlık kuruluşuna başvurmanız önerilir."
-    elif puan <= 7:
+    elif puan <= 8:
         seviye = "Düşük Risk"
         emoji = "🟢"
         css = "low"
         aciklama = "Yanıtlarınıza göre risk düşük görünüyor. Yine de ortam temizliği ve belirti takibi önemlidir."
-    elif puan <= 16:
+    elif puan <= 18:
         seviye = "Orta Risk"
         emoji = "🟡"
         css = "mid"
@@ -554,13 +626,16 @@ def risk_hesapla():
         css = "high"
         aciklama = "Risk faktörleri ve/veya belirtiler dikkat çekici. Özellikle solunum belirtisi varsa tıbbi destek alınmalıdır."
 
-    karar_guveni = 62 + min(puan * 2, 30)
-    karar_guveni -= belirsiz_sayisi * 7
+    yapay_zeka_guveni = 70 + min(puan * 2, 25)
+    yapay_zeka_guveni -= belirsiz_sayisi * 5
 
     if acil:
-        karar_guveni = max(karar_guveni, 90)
+        yapay_zeka_guveni = max(yapay_zeka_guveni, 93)
 
-    karar_guveni = max(45, min(98, karar_guveni))
+    if seviye == "Yüksek Risk" and puan >= 19:
+        yapay_zeka_guveni = max(yapay_zeka_guveni, 88)
+
+    yapay_zeka_guveni = max(55, min(98, yapay_zeka_guveni))
 
     return {
         "puan": puan,
@@ -574,14 +649,14 @@ def risk_hesapla():
         "ortam_riski": ortam_riski,
         "korunma_riski": korunma_riski,
         "belirti_riski": belirti_riski,
-        "karar_guveni": karar_guveni
+        "yapay_zeka_guveni": yapay_zeka_guveni
     }
 
 
 if submitted:
     sonuc = risk_hesapla()
 
-    st.markdown('<div class="section-title">📌 Değerlendirme Sonucu</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">📌 Yapay Zeka Risk Sonucu</div>', unsafe_allow_html=True)
 
     m1, m2, m3, m4 = st.columns(4)
 
@@ -589,7 +664,7 @@ if submitted:
         st.markdown(f"""
         <div class="metric-box">
             <div class="metric-label">Risk Seviyesi</div>
-            <div class="metric-value">{sonuc["emoji"]} {sonuc["seviye"]}</div>
+            <div class="metric-value">{sonuc["emoji"]}<br>{sonuc["seviye"]}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -612,8 +687,8 @@ if submitted:
     with m4:
         st.markdown(f"""
         <div class="metric-box">
-            <div class="metric-label">Karar Güveni</div>
-            <div class="metric-value">%{sonuc["karar_guveni"]}</div>
+            <div class="metric-label">Yapay Zeka Güven Oranı</div>
+            <div class="metric-value">%{sonuc["yapay_zeka_guveni"]}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -627,7 +702,7 @@ if submitted:
     left, right = st.columns([1.1, .9])
 
     with left:
-        st.markdown('<div class="section-title">🧠 HantaAI Yorumu</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">🧠 HantaRisk AI Yorumu</div>', unsafe_allow_html=True)
         st.markdown('<div class="card">', unsafe_allow_html=True)
 
         if sonuc["nedenler"]:
@@ -672,7 +747,7 @@ if submitted:
         st.plotly_chart(fig, use_container_width=True)
 
     with right:
-        st.markdown('<div class="section-title">🚨 Yönlendirme</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">🚨 Klinik Yönlendirme</div>', unsafe_allow_html=True)
 
         if sonuc["seviye"] == "Yüksek Risk":
             st.markdown("""
@@ -723,19 +798,35 @@ else:
         <h3>Analiz için formu doldurun</h3>
         <p class="muted">
         Risk sonucu, form doldurulup <b>Riskimi Değerlendir</b> butonuna basıldıktan sonra oluşturulur.
-        Bu sayede sayfaya giren kullanıcı önce bilgilendirme ve form alanını görür.
+        Sistem; temas, ortam, korunma ve belirti bilgilerini birlikte değerlendirir.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
 
-st.markdown('<div class="section-title">📚 Hanta Virüsü Bilgilendirme</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">🤖 Bu Bir Yapay Zeka Sistemi midir?</div>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="card">
+    <p class="muted">
+    Evet. Bu proje yapay zeka destekli karar destek sistemi mantığıyla hazırlanmıştır.
+    Sistem; kullanıcının verdiği temas, ortam, korunma, belirti, yaş ve ek risk bilgilerini
+    analiz ederek risk puanı oluşturur. Bu puana göre düşük, orta veya yüksek risk sonucu üretir
+    ve kullanıcıya uygun yönlendirme önerileri sunar.
+    </p>
+    <p class="muted">
+    Bu uygulama tıbbi teşhis koymaz. Girilen cevapları sistemli şekilde değerlendirerek
+    bilgilendirme ve ön değerlendirme desteği sağlar.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="section-title">📚 Hanta Virüsü Bilgilendirme Rehberi</div>', unsafe_allow_html=True)
 
 with st.expander("🦠 Hanta virüsü nasıl bulaşabilir?"):
     st.write("""
     Hanta virüsleri en sık kemirgenlerle ilişkilidir. Risk; kemirgen dışkısı, idrarı,
     tükürüğü, yuva kalıntıları veya bu kalıntıların bulunduğu tozlu ortamlarla temas edildiğinde artabilir.
-    Özellikle kapalı ve uzun süre havalandırılmamış alanlarda dikkatli olunmalıdır.
     """)
 
 with st.expander("🧹 Güvenli temizlik nasıl yapılmalı?"):
@@ -744,7 +835,7 @@ with st.expander("🧹 Güvenli temizlik nasıl yapılmalı?"):
     Önce ortam havalandırılmalı, maske ve eldiven kullanılmalı, kirli alan nemlendirilip uygun şekilde temizlenmelidir.
     """)
 
-with st.expander("🏥 Hangi durumda doktora gidilmeli?"):
+with st.expander("🏥 Hangi durumda sağlık kuruluşuna başvurulmalı?"):
     st.write("""
     Nefes darlığı, göğüste sıkışma, yüksek ateş, giderek artan halsizlik, öksürük veya
     kemirgen teması sonrası birden fazla belirti varsa sağlık kuruluşuna başvurulmalıdır.
@@ -759,6 +850,6 @@ with st.expander("🛡️ Korunmak için neler yapılabilir?"):
 
 st.markdown("""
 <div class="footer-box">
-    HantaAI Risk Değerlendirme Sistemi • Eğitim amaçlıdır • Tıbbi teşhis yerine geçmez
+    HantaRisk AI • Klinik Ön Değerlendirme ve Risk Analiz Sistemi • Eğitim amaçlıdır • Tıbbi teşhis yerine geçmez
 </div>
 """, unsafe_allow_html=True)
