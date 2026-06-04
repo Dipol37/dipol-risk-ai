@@ -26,17 +26,17 @@ st.markdown("""
 }
 
 .hero {
-    background: radial-gradient(circle at top left, rgba(139,92,246,.38), transparent 35%),
+    background: radial-gradient(circle at top left, rgba(139,92,246,.42), transparent 35%),
                 linear-gradient(135deg, rgba(30,41,59,.98), rgba(15,23,42,.98));
     border: 1px solid rgba(255,255,255,.10);
-    border-radius: 28px;
-    padding: 34px;
+    border-radius: 30px;
+    padding: 36px;
     box-shadow: 0 18px 50px rgba(0,0,0,.35);
     margin-bottom: 22px;
 }
 
 .hero h1 {
-    font-size: 46px;
+    font-size: 48px;
     line-height: 1.1;
     margin: 0 0 12px 0;
     color: #ddd6fe;
@@ -47,7 +47,7 @@ st.markdown("""
     color: #cbd5e1;
     font-size: 18px;
     line-height: 1.7;
-    max-width: 850px;
+    max-width: 880px;
 }
 
 .badge {
@@ -68,7 +68,7 @@ st.markdown("""
     color: #fef9c3;
     border-radius: 18px;
     padding: 16px 18px;
-    margin: 18px 0 28px 0;
+    margin: 18px 0 26px 0;
 }
 
 .card {
@@ -89,10 +89,10 @@ st.markdown("""
 }
 
 .section-title {
-    font-size: 27px;
+    font-size: 28px;
     font-weight: 800;
     color: #f8fafc;
-    margin: 8px 0 12px 0;
+    margin: 12px 0 12px 0;
 }
 
 .muted {
@@ -115,7 +115,7 @@ st.markdown("""
 }
 
 .metric-value {
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 850;
     color: #fff;
 }
@@ -201,7 +201,7 @@ div[data-testid="stExpander"] {
     }
 
     .metric-value {
-        font-size: 28px;
+        font-size: 26px;
     }
 
     .card, .form-card {
@@ -212,10 +212,6 @@ div[data-testid="stExpander"] {
 </style>
 """, unsafe_allow_html=True)
 
-
-# -------------------------------
-# HERO
-# -------------------------------
 st.markdown("""
 <div class="hero">
     <h1>🦠 HantaAI Risk Değerlendirme</h1>
@@ -238,10 +234,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-# -------------------------------
-# INFO SECTIONS
-# -------------------------------
 info1, info2, info3 = st.columns(3)
 
 with info1:
@@ -249,9 +241,8 @@ with info1:
     <div class="card">
         <h3>Hanta Virüsü Nedir?</h3>
         <p class="muted">
-        Hanta virüsleri bazı kemirgenlerde bulunabilen virüslerdir.
-        İnsanlar çoğunlukla enfekte kemirgenlerin dışkı, idrar veya tükürük kalıntılarına
-        maruz kaldığında risk altında olabilir.
+        Hanta virüsleri bazı kemirgenlerde bulunabilen virüslerdir. İnsanlar, kemirgenlerin
+        dışkı, idrar veya tükürük kalıntılarına maruz kaldığında risk altında olabilir.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -259,10 +250,10 @@ with info1:
 with info2:
     st.markdown("""
     <div class="card">
-        <h3>Nasıl Risk Oluşur?</h3>
+        <h3>Risk Nasıl Oluşur?</h3>
         <p class="muted">
-        Depo, bodrum, ahır, köy evi veya uzun süre kapalı kalan alanlarda kemirgen izlerinin
-        temizlenmesi sırasında toz kalkması risk değerlendirmesinde önemlidir.
+        Depo, bodrum, ahır, köy evi veya uzun süre kapalı kalmış alanlarda kemirgen izleri
+        ve tozlu temizlik risk değerlendirmesinde önemlidir.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -272,18 +263,14 @@ with info3:
     <div class="card">
         <h3>Ne Zaman Dikkat?</h3>
         <p class="muted">
-        Ateş, halsizlik, kas ağrısı gibi belirtilere ek olarak öksürük veya nefes darlığı varsa
-        tıbbi değerlendirme geciktirilmemelidir.
+        Ateş, halsizlik, kas ağrısı gibi belirtilere ek olarak öksürük, göğüs sıkışması
+        veya nefes darlığı varsa tıbbi destek geciktirilmemelidir.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-
-# -------------------------------
-# FORM
-# -------------------------------
 st.markdown('<div class="section-title">📋 Risk Değerlendirme Formu</div>', unsafe_allow_html=True)
-st.markdown('<p class="muted">Sorular yan tarafta değil, ana sayfa içinde adım adım düzenlenmiştir.</p>', unsafe_allow_html=True)
+st.markdown('<p class="muted">Formu adım adım doldurun. Sonuç yalnızca “Riskimi Değerlendir” butonuna basınca oluşturulur.</p>', unsafe_allow_html=True)
 
 with st.form("hanta_risk_formu"):
     st.markdown('<div class="form-card">', unsafe_allow_html=True)
@@ -349,7 +336,7 @@ with st.form("hanta_risk_formu"):
 
     dezenfekte = st.selectbox(
         "Kemirgen izi olan alanı süpürmeden önce ıslatıp/dezenfekte ettiniz mi?",
-        ["Evet", "Hayır", "Böyle bir alan yoktu"]
+        ["Böyle bir alan yoktu", "Evet", "Hayır"]
     )
 
     st.markdown("---")
@@ -383,6 +370,7 @@ with st.form("hanta_risk_formu"):
 
     with k1:
         yas_grubu = st.selectbox("Yaş grubunuz", ["18 altı", "18-30", "31-45", "46-60", "60+"])
+
     with k2:
         riskli_durum = st.selectbox(
             "Bağışıklık düşüklüğü, kronik hastalık veya hamilelik gibi ek risk var mı?",
@@ -394,20 +382,18 @@ with st.form("hanta_risk_formu"):
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-# -------------------------------
-# RISK CALCULATION
-# -------------------------------
 def risk_hesapla():
     puan = 0
     nedenler = []
     acil = False
+    belirsiz_sayisi = 0
 
-    # Temas
     if kemirgen_goruldu == "Evet":
         puan += 2
         nedenler.append("Kemirgen görülmesi temas ihtimalini artırır.")
     elif kemirgen_goruldu == "Emin değilim":
         puan += 1
+        belirsiz_sayisi += 1
         nedenler.append("Kemirgen varlığı net olmadığı için düşük düzeyde risk eklendi.")
 
     if kemirgen_izi == "Evet":
@@ -415,6 +401,7 @@ def risk_hesapla():
         nedenler.append("Kemirgen dışkısı/idrar izi/yuva görülmesi önemli risk faktörüdür.")
     elif kemirgen_izi == "Emin değilim":
         puan += 2
+        belirsiz_sayisi += 1
         nedenler.append("Kemirgen izi konusunda belirsizlik bulunduğu için dikkat önerilir.")
 
     if temas_turu == "Yakınında bulundum":
@@ -428,12 +415,11 @@ def risk_hesapla():
     elif temas_turu == "Isırık / çizik oldu":
         puan += 6
         acil = True
-        nedenler.append("Isırık veya çizik bildirilmesi nedeniyle sağlık kuruluşuna danışılmalıdır.")
+        nedenler.append("Isırık veya çizik bildirildiği için sağlık kuruluşuna danışılması önerilir.")
 
-    # Ortam
     if ortam == "Depo / bodrum / garaj":
         puan += 2
-        nedenler.append("Depo/bodrum/garaj gibi alanlarda kemirgen izi bulunma ihtimali olabilir.")
+        nedenler.append("Depo/bodrum/garaj gibi kapalı alanlar risk değerlendirmesinde dikkate alındı.")
     elif ortam == "Köy evi / bağ evi":
         puan += 2
         nedenler.append("Köy evi/bağ evi gibi alanlar risk değerlendirmesinde dikkate alındı.")
@@ -446,36 +432,37 @@ def risk_hesapla():
 
     if kapali_alan == "Evet":
         puan += 2
-        nedenler.append("Uzun süre kapalı kalan/tozlu alan temizliği risk puanını artırdı.")
+        nedenler.append("Uzun süre kapalı kalan veya tozlu alan temizliği risk puanını artırdı.")
 
     if toz_kalkti == "Evet":
         puan += 3
         nedenler.append("Temizlik sırasında toz kalkması solunum yoluyla maruziyet ihtimalini artırabilir.")
     elif toz_kalkti == "Emin değilim":
         puan += 1
+        belirsiz_sayisi += 1
 
-    # Korunma
     if maske == "Hayır":
         puan += 2
         nedenler.append("Maske kullanılmaması koruyuculuğu azaltır.")
+
     if eldiven == "Hayır":
         puan += 1
         nedenler.append("Eldiven kullanılmaması temas riskini artırabilir.")
+
     if havalandirma == "Hayır":
         puan += 1
         nedenler.append("Ortamın havalandırılmaması risk puanına eklendi.")
+
     if dezenfekte == "Hayır":
         puan += 2
         nedenler.append("Kirli alanın süpürmeden önce ıslatılmaması/dezenfekte edilmemesi risk oluşturabilir.")
 
-    # Belirtiler
     belirti_listesi = [
         ates, halsizlik, kas_agrisi, bas_agrisi, bulanti,
         karin_agrisi, ishal, bas_donmesi, oksuruk,
         nefes_darligi, gogus_sikisma, belirtiler_artiyor
     ]
     belirti_sayisi = sum(belirti_listesi)
-
     puan += belirti_sayisi
 
     if ates:
@@ -501,14 +488,12 @@ def risk_hesapla():
         puan += 3
         nedenler.append("Birden fazla belirti işaretlendiği için risk puanı yükseldi.")
 
-    # Zaman
     if 7 <= temas_gunu <= 45:
         puan += 2
         nedenler.append("Temas sonrası geçen süre belirti takibi açısından anlamlı aralıktadır.")
     elif temas_gunu > 45:
         puan += 1
 
-    # Kişisel risk
     if yas_grubu in ["18 altı", "60+"]:
         puan += 1
         nedenler.append("Yaş grubu nedeniyle dikkat önerilir.")
@@ -518,6 +503,7 @@ def risk_hesapla():
         nedenler.append("Ek sağlık riski bildirildiği için dikkat seviyesi artırıldı.")
     elif riskli_durum == "Emin değilim":
         puan += 1
+        belirsiz_sayisi += 1
 
     temas_riski = (
         (2 if kemirgen_goruldu == "Evet" else 1 if kemirgen_goruldu == "Emin değilim" else 0)
@@ -561,10 +547,13 @@ def risk_hesapla():
         css = "high"
         aciklama = "Risk faktörleri ve/veya belirtiler dikkat çekici. Özellikle solunum belirtisi varsa tıbbi destek alınmalıdır."
 
-    guven = min(98, 55 + puan * 2)
-    if kemirgen_izi == "Emin değilim" or kemirgen_goruldu == "Emin değilim" or toz_kalkti == "Emin değilim":
-        guven -= 8
-    guven = max(45, guven)
+    karar_guveni = 62 + min(puan * 2, 30)
+    karar_guveni -= belirsiz_sayisi * 7
+
+    if acil:
+        karar_guveni = max(karar_guveni, 90)
+
+    karar_guveni = max(45, min(98, karar_guveni))
 
     return {
         "puan": puan,
@@ -578,156 +567,161 @@ def risk_hesapla():
         "ortam_riski": ortam_riski,
         "korunma_riski": korunma_riski,
         "belirti_riski": belirti_riski,
-        "guven": guven
+        "karar_guveni": karar_guveni
     }
 
 
-sonuc = risk_hesapla()
+if submitted:
+    sonuc = risk_hesapla()
 
+    st.markdown('<div class="section-title">📌 Değerlendirme Sonucu</div>', unsafe_allow_html=True)
 
-# -------------------------------
-# RESULTS
-# -------------------------------
-st.markdown('<div class="section-title">📌 Değerlendirme Sonucu</div>', unsafe_allow_html=True)
+    m1, m2, m3, m4 = st.columns(4)
 
-m1, m2, m3, m4 = st.columns(4)
-
-with m1:
-    st.markdown(f"""
-    <div class="metric-box">
-        <div class="metric-label">Risk Seviyesi</div>
-        <div class="metric-value">{sonuc["emoji"]} {sonuc["seviye"]}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with m2:
-    st.markdown(f"""
-    <div class="metric-box">
-        <div class="metric-label">Risk Puanı</div>
-        <div class="metric-value">{sonuc["puan"]}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with m3:
-    st.markdown(f"""
-    <div class="metric-box">
-        <div class="metric-label">Belirti Sayısı</div>
-        <div class="metric-value">{sonuc["belirti_sayisi"]}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with m4:
-    st.markdown(f"""
-    <div class="metric-box">
-        <div class="metric-label">Karar Güveni</div>
-        <div class="metric-value">%{sonuc["guven"]}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown(f"""
-<div class="card {sonuc["css"]}">
-    <div class="result-title">{sonuc["emoji"]} Sonuç: {sonuc["seviye"]}</div>
-    <div class="result-text">{sonuc["aciklama"]}</div>
-</div>
-""", unsafe_allow_html=True)
-
-left, right = st.columns([1.1, .9])
-
-with left:
-    st.markdown('<div class="section-title">🧠 HantaAI Yorumu</div>', unsafe_allow_html=True)
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-
-    if sonuc["nedenler"]:
-        for neden in sonuc["nedenler"]:
-            st.markdown(f"<div class='step'>• {neden}</div>", unsafe_allow_html=True)
-    else:
-        st.write("Belirgin risk faktörü seçilmedi.")
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="section-title">📊 Risk Dağılımı</div>', unsafe_allow_html=True)
-
-    df = pd.DataFrame({
-        "Kategori": ["Temas", "Ortam", "Korunma Eksikliği", "Belirti"],
-        "Puan": [
-            sonuc["temas_riski"],
-            sonuc["ortam_riski"],
-            sonuc["korunma_riski"],
-            sonuc["belirti_riski"]
-        ]
-    })
-
-    fig = px.bar(
-        df,
-        x="Kategori",
-        y="Puan",
-        text="Puan",
-        color="Kategori",
-        title="Risk faktörlerinin puan dağılımı"
-    )
-
-    fig.update_layout(
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,255,255,.04)",
-        font=dict(color="white"),
-        title_font=dict(size=20),
-        xaxis_title="",
-        yaxis_title="Puan",
-        legend_title=""
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-with right:
-    st.markdown('<div class="section-title">🚨 Yönlendirme</div>', unsafe_allow_html=True)
-
-    if sonuc["seviye"] == "Yüksek Risk":
-        st.markdown("""
-        <div class="card high">
-            <h3>Sağlık kuruluşuna başvurun</h3>
-            <p class="result-text">
-            Özellikle nefes darlığı, göğüs sıkışması, artan belirtiler veya doğrudan temas varsa
-            gecikmeden sağlık kuruluşuna başvurulmalıdır.
-            </p>
+    with m1:
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-label">Risk Seviyesi</div>
+            <div class="metric-value">{sonuc["emoji"]} {sonuc["seviye"]}</div>
         </div>
         """, unsafe_allow_html=True)
 
-    elif sonuc["seviye"] == "Orta Risk":
-        st.markdown("""
-        <div class="card mid">
-            <h3>Belirti takibi yapın</h3>
-            <p class="result-text">
-            Belirtiler devam ederse, artarsa veya solunum belirtisi eklenirse sağlık kuruluşuna danışın.
-            </p>
+    with m2:
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-label">Risk Puanı</div>
+            <div class="metric-value">{sonuc["puan"]}</div>
         </div>
         """, unsafe_allow_html=True)
 
-    else:
-        st.markdown("""
-        <div class="card low">
-            <h3>Genel önlem yeterli olabilir</h3>
-            <p class="result-text">
-            Risk düşük görünse de kemirgen kontrolü, güvenli temizlik ve belirti takibi sürdürülmelidir.
-            </p>
+    with m3:
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-label">Belirti Sayısı</div>
+            <div class="metric-value">{sonuc["belirti_sayisi"]}</div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">🧼 Korunma Önerileri</div>', unsafe_allow_html=True)
+    with m4:
+        st.markdown(f"""
+        <div class="metric-box">
+            <div class="metric-label">Karar Güveni</div>
+            <div class="metric-value">%{sonuc["karar_guveni"]}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="card {sonuc["css"]}">
+        <div class="result-title">{sonuc["emoji"]} Sonuç: {sonuc["seviye"]}</div>
+        <div class="result-text">{sonuc["aciklama"]}</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    left, right = st.columns([1.1, .9])
+
+    with left:
+        st.markdown('<div class="section-title">🧠 HantaAI Yorumu</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+
+        if sonuc["nedenler"]:
+            for neden in sonuc["nedenler"]:
+                st.markdown(f"<div class='step'>• {neden}</div>", unsafe_allow_html=True)
+        else:
+            st.write("Belirgin risk faktörü seçilmedi.")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="section-title">📊 Risk Dağılımı</div>', unsafe_allow_html=True)
+
+        df = pd.DataFrame({
+            "Kategori": ["Temas", "Ortam", "Korunma Eksikliği", "Belirti"],
+            "Puan": [
+                sonuc["temas_riski"],
+                sonuc["ortam_riski"],
+                sonuc["korunma_riski"],
+                sonuc["belirti_riski"]
+            ]
+        })
+
+        fig = px.bar(
+            df,
+            x="Kategori",
+            y="Puan",
+            text="Puan",
+            color="Kategori",
+            title="Risk faktörlerinin puan dağılımı"
+        )
+
+        fig.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(255,255,255,.04)",
+            font=dict(color="white"),
+            title_font=dict(size=20),
+            xaxis_title="",
+            yaxis_title="Puan",
+            legend_title=""
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    with right:
+        st.markdown('<div class="section-title">🚨 Yönlendirme</div>', unsafe_allow_html=True)
+
+        if sonuc["seviye"] == "Yüksek Risk":
+            st.markdown("""
+            <div class="card high">
+                <h3>Sağlık kuruluşuna başvurun</h3>
+                <p class="result-text">
+                Özellikle nefes darlığı, göğüs sıkışması, artan belirtiler veya doğrudan temas varsa
+                gecikmeden sağlık kuruluşuna başvurulmalıdır.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        elif sonuc["seviye"] == "Orta Risk":
+            st.markdown("""
+            <div class="card mid">
+                <h3>Belirti takibi yapın</h3>
+                <p class="result-text">
+                Belirtiler devam ederse, artarsa veya solunum belirtisi eklenirse sağlık kuruluşuna danışın.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        else:
+            st.markdown("""
+            <div class="card low">
+                <h3>Genel önlem yeterli olabilir</h3>
+                <p class="result-text">
+                Risk düşük görünse de kemirgen kontrolü, güvenli temizlik ve belirti takibi sürdürülmelidir.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown('<div class="section-title">🧼 Korunma Önerileri</div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="card">
+            <div class="step">1. Kemirgen izi olan alanları kuru süpürmeyin.</div>
+            <div class="step">2. Temizlik öncesinde ortamı havalandırın.</div>
+            <div class="step">3. Maske ve eldiven kullanın.</div>
+            <div class="step">4. Toz kaldırmamaya dikkat edin.</div>
+            <div class="step">5. Gıda ve çöpleri açıkta bırakmayın.</div>
+            <div class="step">6. Kemirgen giriş noktalarını kapatın.</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+else:
     st.markdown("""
     <div class="card">
-        <div class="step">1. Kemirgen izi olan alanları kuru süpürmeyin.</div>
-        <div class="step">2. Temizlik öncesinde ortamı havalandırın.</div>
-        <div class="step">3. Maske ve eldiven kullanın.</div>
-        <div class="step">4. Toz kaldırmamaya dikkat edin.</div>
-        <div class="step">5. Gıda ve çöpleri açıkta bırakmayın.</div>
-        <div class="step">6. Kemirgen giriş noktalarını kapatın.</div>
+        <h3>Analiz için formu doldurun</h3>
+        <p class="muted">
+        Risk sonucu, form doldurulup <b>Riskimi Değerlendir</b> butonuna basıldıktan sonra oluşturulur.
+        Bu sayede sayfaya giren kullanıcı önce bilgilendirme ve form alanını görür.
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
 
-# -------------------------------
-# EXTRA EXPLANATION
-# -------------------------------
 st.markdown('<div class="section-title">📚 Bilgilendirme Bölümü</div>', unsafe_allow_html=True)
 
 with st.expander("🦠 Hanta virüsü hakkında kısa bilgi"):
@@ -753,7 +747,8 @@ with st.expander("📌 Projede kullanılan yöntem"):
     st.write("""
     Bu projede kural tabanlı risk puanlama sistemi kullanılmıştır. Kullanıcının cevapları temas,
     ortam, korunma ve belirti gruplarına ayrılır. Her faktör puanlanır ve toplam puana göre
-    düşük, orta veya yüksek risk sonucu oluşturulur.
+    düşük, orta veya yüksek risk sonucu oluşturulur. Karar güveni, cevapların netliğine ve risk
+    faktörlerinin belirginliğine göre hesaplanır.
     """)
 
 st.markdown("""
